@@ -1,15 +1,30 @@
-# A weekend experiment with fake CPAP cases
+# Synthetic CPAP prior-auth reliability demo
 
-This is a small experiment with synthetic CPAP requests and public Medicare rules (NCD 240.4 and LCD L33718). It is not a coverage decision, and it is not clinical advice.
-
-The AI can only approve a request or send it to a nurse. The instruction is: you never deny.
+400 synthetic Medicare CPAP requests (NCD 240.4, LCD L33718). The AI may only approve or refer to a nurse. Neither verbal confidence nor 5-sample consistency gave a safe auto-approve threshold at 5% error tolerance.
 
 <!-- result:start -->
 On this synthetic set, variant B had no consistency-confidence threshold whose 95% Wilson upper bound stayed at or under 5%. Everything in that reading goes to a nurse.
 <!-- result:end -->
 
-The chart, once `pnpm demo` has a cache to read, is `reports/charts/headline-coverage.svg`. Each step to the right auto-approves more cases. The band is the 95% Wilson upper bound on how often those approvals are wrong. The dashed line is the error we are willing to accept.
+## Main failure mode: contradictory notes
 
-What was hard on purpose: borderline sleep scores, missing paperwork, and notes that disagree.
+**Raw performance (verbal, temperature 0)**:
+- Variant A: 197 approved, 99 correct, 98 wrong (50% approval accuracy, 65% overall)
+- Variant B: 177 approved, 99 correct, 78 wrong (56% approval accuracy, 70% overall)
 
-What this does not prove: how the same setup would behave on real requests. These cases are synthetic.
+**Where it fails**:
+- Conflict cases (notes disagree): A approved 60/60 wrongly, B approved 38/60 wrongly
+- Missing-data cases: both approved 28/60 wrongly
+- Borderline cases: A 10 wrong, B 12 wrong
+
+**Guarded filter** (final = APPROVE only if model said APPROVE and its own criteria checks all pass):
+- Variant A: 169 approved, 99 correct, 70 wrong (59% approval accuracy, 72% overall)
+- Variant B: 149 approved, 99 correct, 50 wrong (66% approval accuracy, 77% overall)
+- Eliminated all 28 missing-data false approvals in each variant
+- Conflict approvals unchanged (criteria don't reflect contradictions)
+
+The checklist prompt (variant B) was significantly better calibrated (Wilcoxon p < 0.0001). All quoted citations were real (100% validity).
+
+## Data limitations
+
+Only 274 of 400 case texts are unique. 276 cases have event counts inconsistent with AHI × sleep time. Both overstate precision for Wilson bounds and Wilcoxon tests. No holdout split. Not clinical advice, not affiliated with CMS.

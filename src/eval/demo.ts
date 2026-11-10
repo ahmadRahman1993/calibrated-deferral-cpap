@@ -210,11 +210,9 @@ function safeSpearman(result: EvaluateResult) {
 }
 
 function stampProse(root: string, sentence: string): void {
-  for (const relative of ["SUMMARY.md", "scripts/walkthrough.md"]) {
-    const file = path.join(root, relative);
-    if (!existsSync(file)) continue;
-    writeFileSync(file, replaceMarked(readFileSync(file, "utf8"), "result", sentence));
-  }
+  const file = path.join(root, "SUMMARY.md");
+  if (!existsSync(file)) return;
+  writeFileSync(file, replaceMarked(readFileSync(file, "utf8"), "result", sentence));
 }
 
 const invoked = process.argv[1]?.includes("demo.ts") || process.argv[1]?.includes("demo.js");

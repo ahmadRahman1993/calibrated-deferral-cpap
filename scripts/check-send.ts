@@ -12,14 +12,14 @@ if (forbidden.length > 0) {
 
 const denylistFile = path.join(root, "send-denylist.txt");
 if (!existsSync(denylistFile)) {
-  problems.push("send-denylist.txt is missing. Copy send-denylist.example.txt and add employer terms.");
+  problems.push("send-denylist.txt is missing. Copy send-denylist.example.txt and add terms you want to keep out of the public repository.");
 } else {
   const terms = readFileSync(denylistFile, "utf8")
     .split("\n")
     .map((line) => line.trim())
     .filter((line) => line.length > 0 && !line.startsWith("#"));
   if (terms.length === 0) {
-    problems.push("send-denylist.txt has no terms. Add employer names, product names, and internal terms.");
+    problems.push("send-denylist.txt has no terms. Add any company names, project names, or other terms to exclude from publication.");
   }
   const hits: string[] = [];
   walkTextFiles(root, (file) => {
@@ -55,4 +55,4 @@ if (problems.length > 0) {
   console.error(problems.join("\n\n"));
   process.exit(1);
 }
-console.log("Send checklist passed.");
+console.log("Public-release checklist passed.");

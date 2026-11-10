@@ -115,9 +115,13 @@ The headline chart uses variant B, with both confidence curves. No threshold kep
 
 ## Limitations
 
-- The cases are synthetic. This is not an estimate of real prior-auth performance.
-- Adult is encoded as age 18 or older. The NCD says adult and does not define it.
-- Telehealth-only evaluation is referred in this demo. Confirm the current CMS and DME MAC position before treating that as a coverage rule.
-- The event floor follows the NCD wording: it applies when recorded sleep is under 2 hours. The LCD reading is available as `minEvents: "lcd"` and is not the default.
-- Verbal confidence is often poorly calibrated. If ECE is high or Spearman rho is weak, the threshold is a description of this run, not a number to ship.
-- Continuation-of-therapy requests are not in this dataset.
+- **Synthetic data.** The cases are synthetic. This is not an estimate of real prior-auth performance.
+- **Data quality.** Only 274 of 400 case texts are unique. 276 of 400 cases have event counts inconsistent with AHI × sleep time (the fixture uses 240 min / 88 events, but the generator varies AHI without updating event counts). Both issues overstate precision: the n=400 independence assumptions in Wilcoxon tests and Wilson bounds treat duplicate or near-duplicate cases as independent observations.
+- **No holdout split.** The auto-approve threshold is selected and evaluated on the same cases.
+- **Guarded filter limitations.** The guarded filter eliminates missing-data false approvals but does not catch conflicts (criteria statuses don't reflect contradictions across documents). Variant A: 60 of 60 conflict cases still wrongly approved. Variant B: 38 of 60 conflict cases still wrongly approved.
+- **Adult definition.** Adult is encoded as age 18 or older. The NCD says adult and does not define it.
+- **Telehealth evaluation.** Telehealth-only evaluation is referred in this demo. Confirm the current CMS and DME MAC position before treating that as a coverage rule.
+- **Minimum event rule.** The event floor uses the LCD reading by default (`minEvents: "lcd"`): it applies always, not only when recorded sleep is under 2 hours. The NCD wording is available as `minEvents: "ncd"`. Supplier education (NCD item 2) and same-day evaluation handling are simplifications.
+- **3% hypopnea scoring.** Any study using a 3% oxygen desaturation hypopnea scoring rule is referred (Medicare policy requires the 4% rule). The A3 ambiguity rule text in `criteria.ts` was kept narrow ("within 2 events of threshold") for prompt hash compatibility with the existing response cache, but the implementation in `rules.ts` refers all 3%-scored studies.
+- **Verbal confidence calibration.** Verbal confidence is often poorly calibrated. If ECE is high or Spearman rho is weak, the threshold is a description of this run, not a number to ship.
+- **Continuation requests.** Continuation-of-therapy requests are not in this dataset.

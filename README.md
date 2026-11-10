@@ -8,11 +8,31 @@ The checklist prompt was significantly better calibrated (Wilcoxon p ~ 0.0001). 
 
 A guarded filter (final = APPROVE only if model said APPROVE and its criteria checks all pass) eliminated all 28 missing-paperwork false approvals in each variant. Guarded approval accuracy: 59% (A: 99/169), 66% (B: 99/149).
 
-Independent personal project, not affiliated with any company. Synthetic data, not clinical advice.
+Independent personal project, not affiliated with any company or CMS. Synthetic data, not clinical advice.
 
 ---
 
 Ground truth comes from a deterministic rules engine over structured facts. The model only sees rendered notes. Charts are rebuilt from a committed response cache, so `pnpm demo` does not need an API key.
+
+## Charts
+
+### Coverage vs Error Tradeoff (Variant B)
+
+Each step to the right auto-approves more cases. The band is the 95% Wilson upper bound on how often those approvals are wrong. Neither verbal confidence (gray) nor 5-sample consistency (orange) achieved the 5% error target.
+
+![Coverage vs Error](reports/charts/headline-coverage.svg)
+
+### Calibration Curves
+
+Reliability diagrams show whether stated confidence matches actual correctness. Poor calibration (high ECE) means the confidence numbers are not trustworthy thresholds.
+
+**Variant A (direct prompt)**: ECE 0.337
+
+![Variant A Calibration](reports/charts/reliability-A.svg)
+
+**Variant B (checklist prompt)**: ECE 0.270 (significantly better, p < 0.0001)
+
+![Variant B Calibration](reports/charts/reliability-B.svg)
 
 ## Policy
 
@@ -75,7 +95,13 @@ Wilcoxon signed-rank on per-case verbal Brier, A versus B: statistic 1242.0000, 
 Slice accuracy, the coverage curve, and the reliability diagrams are in [`reports/REPORT.md`](reports/REPORT.md) and [`reports/charts/`](reports/charts/).
 <!-- results:end -->
 
-Copy `send-denylist.example.txt` to `send-denylist.txt` and add employer terms before sending. That file is gitignored. `pnpm check:send` runs the pre-send checks.
+## Public-Release Checklist
+
+Before publishing this repository or sharing it publicly:
+
+1. Copy `send-denylist.example.txt` to `send-denylist.txt` (gitignored)
+2. Add any terms you want to keep out of the public repository (company names, internal project names, etc.)
+3. Run `pnpm check:send` to verify no flagged terms appear in the codebase and all required disclaimers are present
 
 ## Layout
 
