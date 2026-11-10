@@ -52,7 +52,7 @@
             "n": 120,
             "accuracy": 0.75,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.75,
             "guardedFalseApproves": 0
           },
           {
@@ -68,8 +68,8 @@
             "n": 60,
             "accuracy": 0.6333333333333333,
             "falseApproves": 10,
-            "guardedAccuracy": 0.5666666666666667,
-            "guardedFalseApproves": 26
+            "guardedAccuracy": 0.6333333333333333,
+            "guardedFalseApproves": 10
           },
           {
             "name": "missing",
@@ -102,7 +102,7 @@
             "n": 150,
             "accuracy": 0.8,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.8,
             "guardedFalseApproves": 0
           },
           {
@@ -118,24 +118,24 @@
             "n": 45,
             "accuracy": 0.6444444444444445,
             "falseApproves": 4,
-            "guardedAccuracy": 0.5555555555555556,
-            "guardedFalseApproves": 20
+            "guardedAccuracy": 0.6444444444444445,
+            "guardedFalseApproves": 4
           },
           {
             "name": "SCORING_RULE",
             "n": 5,
             "accuracy": 0.2,
             "falseApproves": 4,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 5
+            "guardedAccuracy": 0.2,
+            "guardedFalseApproves": 4
           },
           {
             "name": "POLICY_GAP",
             "n": 15,
             "accuracy": 1,
             "falseApproves": 0,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 15
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "SHORT_SLEEP",
@@ -171,10 +171,10 @@
           }
         ],
         "guarded": {
-          "accuracy": 0.785,
-          "approves": 227,
-          "correct": 141,
-          "wrong": 86
+          "accuracy": 0.72,
+          "approves": 169,
+          "correct": 99,
+          "wrong": 70
         }
       },
       "consistency": {
@@ -201,7 +201,7 @@
             "n": 120,
             "accuracy": 0.75,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.75,
             "guardedFalseApproves": 0
           },
           {
@@ -217,8 +217,8 @@
             "n": 60,
             "accuracy": 0.6333333333333333,
             "falseApproves": 10,
-            "guardedAccuracy": 0.6,
-            "guardedFalseApproves": 24
+            "guardedAccuracy": 0.6333333333333333,
+            "guardedFalseApproves": 10
           },
           {
             "name": "missing",
@@ -251,7 +251,7 @@
             "n": 150,
             "accuracy": 0.8,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.8,
             "guardedFalseApproves": 0
           },
           {
@@ -267,24 +267,24 @@
             "n": 45,
             "accuracy": 0.6444444444444445,
             "falseApproves": 4,
-            "guardedAccuracy": 0.6,
-            "guardedFalseApproves": 18
+            "guardedAccuracy": 0.6444444444444445,
+            "guardedFalseApproves": 4
           },
           {
             "name": "SCORING_RULE",
             "n": 5,
             "accuracy": 0.2,
             "falseApproves": 4,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 5
+            "guardedAccuracy": 0.2,
+            "guardedFalseApproves": 4
           },
           {
             "name": "POLICY_GAP",
             "n": 15,
             "accuracy": 1,
             "falseApproves": 0,
-            "guardedAccuracy": 0.13333333333333333,
-            "guardedFalseApproves": 13
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "SHORT_SLEEP",
@@ -320,10 +320,10 @@
           }
         ],
         "guarded": {
-          "accuracy": 0.79,
-          "approves": 225,
-          "correct": 141,
-          "wrong": 84
+          "accuracy": 0.72,
+          "approves": 169,
+          "correct": 99,
+          "wrong": 70
         }
       }
     },
@@ -358,7 +358,7 @@
             "n": 120,
             "accuracy": 0.75,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.75,
             "guardedFalseApproves": 0
           },
           {
@@ -374,8 +374,8 @@
             "n": 60,
             "accuracy": 0.6,
             "falseApproves": 12,
-            "guardedAccuracy": 0.55,
-            "guardedFalseApproves": 27
+            "guardedAccuracy": 0.6,
+            "guardedFalseApproves": 12
           },
           {
             "name": "missing",
@@ -390,8 +390,8 @@
             "n": 60,
             "accuracy": 0.36666666666666664,
             "falseApproves": 38,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 60
+            "guardedAccuracy": 0.36666666666666664,
+            "guardedFalseApproves": 38
           },
           {
             "name": "ambiguous",
@@ -408,7 +408,7 @@
             "n": 150,
             "accuracy": 0.8,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.8,
             "guardedFalseApproves": 0
           },
           {
@@ -424,8 +424,8 @@
             "n": 45,
             "accuracy": 0.6222222222222222,
             "falseApproves": 5,
-            "guardedAccuracy": 0.5555555555555556,
-            "guardedFalseApproves": 20
+            "guardedAccuracy": 0.6222222222222222,
+            "guardedFalseApproves": 5
           },
           {
             "name": "SCORING_RULE",
@@ -440,8 +440,8 @@
             "n": 15,
             "accuracy": 1,
             "falseApproves": 0,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 15
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "SHORT_SLEEP",
@@ -464,8 +464,8 @@
             "n": 60,
             "accuracy": 0.36666666666666664,
             "falseApproves": 38,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 60
+            "guardedAccuracy": 0.36666666666666664,
+            "guardedFalseApproves": 38
           },
           {
             "name": "AMBIGUOUS_SYMPTOM",
@@ -477,10 +477,10 @@
           }
         ],
         "guarded": {
-          "accuracy": 0.7825,
-          "approves": 228,
-          "correct": 141,
-          "wrong": 87
+          "accuracy": 0.77,
+          "approves": 149,
+          "correct": 99,
+          "wrong": 50
         }
       },
       "consistency": {
@@ -507,7 +507,7 @@
             "n": 120,
             "accuracy": 0.75,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.75,
             "guardedFalseApproves": 0
           },
           {
@@ -523,8 +523,8 @@
             "n": 60,
             "accuracy": 0.6166666666666667,
             "falseApproves": 11,
-            "guardedAccuracy": 0.55,
-            "guardedFalseApproves": 26
+            "guardedAccuracy": 0.6166666666666667,
+            "guardedFalseApproves": 11
           },
           {
             "name": "missing",
@@ -539,8 +539,8 @@
             "n": 60,
             "accuracy": 0.38333333333333336,
             "falseApproves": 37,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 60
+            "guardedAccuracy": 0.38333333333333336,
+            "guardedFalseApproves": 37
           },
           {
             "name": "ambiguous",
@@ -557,7 +557,7 @@
             "n": 150,
             "accuracy": 0.8,
             "falseApproves": 0,
-            "guardedAccuracy": 1,
+            "guardedAccuracy": 0.8,
             "guardedFalseApproves": 0
           },
           {
@@ -573,8 +573,8 @@
             "n": 45,
             "accuracy": 0.6222222222222222,
             "falseApproves": 5,
-            "guardedAccuracy": 0.5333333333333333,
-            "guardedFalseApproves": 20
+            "guardedAccuracy": 0.6222222222222222,
+            "guardedFalseApproves": 5
           },
           {
             "name": "SCORING_RULE",
@@ -589,8 +589,8 @@
             "n": 15,
             "accuracy": 1,
             "falseApproves": 0,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 15
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "SHORT_SLEEP",
@@ -613,8 +613,8 @@
             "n": 60,
             "accuracy": 0.38333333333333336,
             "falseApproves": 37,
-            "guardedAccuracy": 0,
-            "guardedFalseApproves": 60
+            "guardedAccuracy": 0.38333333333333336,
+            "guardedFalseApproves": 37
           },
           {
             "name": "AMBIGUOUS_SYMPTOM",
@@ -626,10 +626,10 @@
           }
         ],
         "guarded": {
-          "accuracy": 0.7775,
-          "approves": 228,
-          "correct": 140,
-          "wrong": 88
+          "accuracy": 0.77,
+          "approves": 149,
+          "correct": 99,
+          "wrong": 50
         }
       }
     }

@@ -6,7 +6,7 @@ Where it fails: notes that disagree (approved 60/60 with the direct prompt, 38/6
 
 The checklist prompt was significantly better calibrated (Wilcoxon p ~ 0.0001). All quoted citations were real.
 
-A guarded policy (approve only if the model's own criteria checks all pass) eliminated missing-paperwork false approvals but increased conflict approvals to 60/60 for both prompts. Guarded approval accuracy: 62% (A), 62% (B).
+A guarded filter (final = APPROVE only if model said APPROVE and its criteria checks all pass) eliminated all 28 missing-paperwork false approvals in each variant. Guarded approval accuracy: 59% (A: 99/169), 66% (B: 99/149).
 
 Independent personal project, not affiliated with any company. Synthetic data, not clinical advice.
 

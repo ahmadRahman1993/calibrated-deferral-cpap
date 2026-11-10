@@ -10,7 +10,7 @@ Calibration n is the number of cases with a confidence, which is also the sum of
 
 ## Guarded Policy
 
-An offline guarded policy overrides the model's stated decision: approve only if the model's own criteria statuses satisfy the policy requirements (I1, I2, I3, I4, I7 all "met", and at least one of I5 or I6 "met"); otherwise REFER. This eliminates false approvals where the model marked a required criterion as "unclear" yet still said APPROVE. Conflicts are not reflected in criteria statuses, so the guarded policy does not catch them.
+An offline guarded filter acts on the model's APPROVE decisions: final decision is APPROVE only if (1) the model said APPROVE, AND (2) the model's own criteria statuses satisfy policy requirements (I1, I2, I3, I4, I7 all "met", and at least one of I5 or I6 "met"); otherwise REFER. This eliminates false approvals where the model said APPROVE but marked a required criterion as "unclear" or "not_met". Conflicts are not reflected in criteria statuses, so the guarded filter does not catch them. The filter can only reduce approvals, never increase them.
 
 ## Variants
 
@@ -22,7 +22,7 @@ Sample draws that failed to parse: 3 of 2000.
 
 #### Verbal confidence
 Accuracy 65.0% on all 400 cases, with an unparsed case counted wrong. ECE 0.296. Brier 0.312. Calibration n 400 (reliability bins sum to 400).
-Guarded: 227 approved (141 correct, 86 wrong); overall accuracy 78.5%.
+Guarded: 169 approved (99 correct, 70 wrong); overall accuracy 72.0%.
 Parse failures 0.0% (0 of 400).
 Spearman rho between confidence and correctness: 0.1608 (p 0.0012, n 400).
 No threshold kept the Wilson upper bound at or under 5%.
@@ -32,16 +32,16 @@ Slice accuracy uses the verbal decision. A parse failure counts as a miss and is
 
 | Slice | n | Accuracy (raw) | False approvals (raw) | Accuracy (guarded) | False approvals (guarded) |
 | --- | --- | --- | --- | --- | --- |
-| clean_approve | 120 | 75.0% | 0 | 100.0% | 0 |
+| clean_approve | 120 | 75.0% | 0 | 75.0% | 0 |
 | clean_refer | 60 | 100.0% | 0 | 100.0% | 0 |
-| borderline | 60 | 63.3% | 10 | 56.7% | 26 |
+| borderline | 60 | 63.3% | 10 | 63.3% | 10 |
 | missing | 60 | 53.3% | 28 | 100.0% | 0 |
 | conflict | 60 | 0.0% | 60 | 0.0% | 60 |
 | ambiguous | 40 | 100.0% | 0 | 100.0% | 0 |
 
 #### Consistency confidence
 Accuracy 65.3% on all 400 cases, with an unparsed case counted wrong. ECE 0.337. Brier 0.336. Calibration n 400 (reliability bins sum to 400).
-Guarded: 225 approved (141 correct, 84 wrong); overall accuracy 79.0%.
+Guarded: 169 approved (99 correct, 70 wrong); overall accuracy 72.0%.
 Parse failures 0.0% (0 of 400).
 Spearman rho between confidence and correctness: 0.1330 (p 0.0077, n 400).
 No threshold kept the Wilson upper bound at or under 5%.
@@ -51,9 +51,9 @@ Slice accuracy uses the majority decision. A case whose five draws all failed to
 
 | Slice | n | Accuracy (raw) | False approvals (raw) | Accuracy (guarded) | False approvals (guarded) |
 | --- | --- | --- | --- | --- | --- |
-| clean_approve | 120 | 75.0% | 0 | 100.0% | 0 |
+| clean_approve | 120 | 75.0% | 0 | 75.0% | 0 |
 | clean_refer | 60 | 100.0% | 0 | 100.0% | 0 |
-| borderline | 60 | 63.3% | 10 | 60.0% | 24 |
+| borderline | 60 | 63.3% | 10 | 63.3% | 10 |
 | missing | 60 | 55.0% | 27 | 100.0% | 0 |
 | conflict | 60 | 0.0% | 60 | 0.0% | 60 |
 | ambiguous | 40 | 100.0% | 0 | 100.0% | 0 |
@@ -66,7 +66,7 @@ Sample draws that failed to parse: 2 of 2000.
 
 #### Verbal confidence
 Accuracy 70.0% on all 400 cases, with an unparsed case counted wrong. ECE 0.243. Brier 0.267. Calibration n 400 (reliability bins sum to 400).
-Guarded: 228 approved (141 correct, 87 wrong); overall accuracy 78.3%.
+Guarded: 149 approved (99 correct, 50 wrong); overall accuracy 77.0%.
 Parse failures 0.0% (0 of 400).
 Spearman rho between confidence and correctness: 0.1864 (p 0.0002, n 400).
 No threshold kept the Wilson upper bound at or under 5%.
@@ -76,16 +76,16 @@ Slice accuracy uses the verbal decision. A parse failure counts as a miss and is
 
 | Slice | n | Accuracy (raw) | False approvals (raw) | Accuracy (guarded) | False approvals (guarded) |
 | --- | --- | --- | --- | --- | --- |
-| clean_approve | 120 | 75.0% | 0 | 100.0% | 0 |
+| clean_approve | 120 | 75.0% | 0 | 75.0% | 0 |
 | clean_refer | 60 | 100.0% | 0 | 100.0% | 0 |
-| borderline | 60 | 60.0% | 12 | 55.0% | 27 |
+| borderline | 60 | 60.0% | 12 | 60.0% | 12 |
 | missing | 60 | 53.3% | 28 | 100.0% | 0 |
-| conflict | 60 | 36.7% | 38 | 0.0% | 60 |
+| conflict | 60 | 36.7% | 38 | 36.7% | 38 |
 | ambiguous | 40 | 100.0% | 0 | 100.0% | 0 |
 
 #### Consistency confidence
 Accuracy 70.8% on all 400 cases, with an unparsed case counted wrong. ECE 0.270. Brier 0.276. Calibration n 400 (reliability bins sum to 400).
-Guarded: 228 approved (140 correct, 88 wrong); overall accuracy 77.8%.
+Guarded: 149 approved (99 correct, 50 wrong); overall accuracy 77.0%.
 Parse failures 0.0% (0 of 400).
 Spearman rho between confidence and correctness: 0.1349 (p 0.0069, n 400).
 No threshold kept the Wilson upper bound at or under 5%.
@@ -95,11 +95,11 @@ Slice accuracy uses the majority decision. A case whose five draws all failed to
 
 | Slice | n | Accuracy (raw) | False approvals (raw) | Accuracy (guarded) | False approvals (guarded) |
 | --- | --- | --- | --- | --- | --- |
-| clean_approve | 120 | 75.0% | 0 | 100.0% | 0 |
+| clean_approve | 120 | 75.0% | 0 | 75.0% | 0 |
 | clean_refer | 60 | 100.0% | 0 | 100.0% | 0 |
-| borderline | 60 | 61.7% | 11 | 55.0% | 26 |
+| borderline | 60 | 61.7% | 11 | 61.7% | 11 |
 | missing | 60 | 55.0% | 27 | 96.7% | 2 |
-| conflict | 60 | 38.3% | 37 | 0.0% | 60 |
+| conflict | 60 | 38.3% | 37 | 38.3% | 37 |
 | ambiguous | 40 | 100.0% | 0 | 100.0% | 0 |
 
 ## Comparison

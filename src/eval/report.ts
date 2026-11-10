@@ -65,7 +65,7 @@ export function writeReportMarkdown(
     "",
     "## Guarded Policy",
     "",
-    "An offline guarded policy overrides the model's stated decision: approve only if the model's own criteria statuses satisfy the policy requirements (I1, I2, I3, I4, I7 all \"met\", and at least one of I5 or I6 \"met\"); otherwise REFER. This eliminates false approvals where the model marked a required criterion as \"unclear\" yet still said APPROVE. Conflicts are not reflected in criteria statuses, so the guarded policy does not catch them.",
+    "An offline guarded filter acts on the model's APPROVE decisions: final decision is APPROVE only if (1) the model said APPROVE, AND (2) the model's own criteria statuses satisfy policy requirements (I1, I2, I3, I4, I7 all \"met\", and at least one of I5 or I6 \"met\"); otherwise REFER. This eliminates false approvals where the model said APPROVE but marked a required criterion as \"unclear\" or \"not_met\". Conflicts are not reflected in criteria statuses, so the guarded filter does not catch them. The filter can only reduce approvals, never increase them.",
     "",
     "## Variants",
     "",
