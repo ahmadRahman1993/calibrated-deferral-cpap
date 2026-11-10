@@ -1,0 +1,493 @@
+{
+  "n": 400,
+  "comparison": {
+    "verbalBrier": {
+      "test": "wilcoxon",
+      "statistic": 1242,
+      "pValue": 0.00005935876591944833,
+      "significant": true,
+      "n": 55,
+      "effectSize": 0.612987012987013,
+      "alpha": 0.05
+    },
+    "consistencyBrier": {
+      "test": "wilcoxon",
+      "statistic": 1799.5,
+      "pValue": 0.00011992282970063606,
+      "significant": true,
+      "n": 68,
+      "effectSize": 0.5341005967604433,
+      "alpha": 0.05
+    }
+  },
+  "variants": {
+    "A": {
+      "model": "claude-haiku-4-5-20251001",
+      "citationValidity": 1,
+      "citationsValid": 2914,
+      "citationsTotal": 2914,
+      "sampleParseFailures": 3,
+      "sampleDraws": 2000,
+      "verbal": {
+        "accuracy": 0.65,
+        "ece": 0.2956499999999947,
+        "brier": 0.3122605000000009,
+        "calibrationN": 400,
+        "binN": 400,
+        "parseFailures": 0,
+        "parseFailureRate": 0,
+        "spearman": {
+          "test": "spearman",
+          "rho": 0.1608335812451808,
+          "pValue": 0.0012481513988027437,
+          "significant": true,
+          "n": 400,
+          "alpha": 0.05
+        },
+        "safeAt5": null,
+        "safeAt2": null,
+        "slices": [
+          {
+            "name": "clean_approve",
+            "n": 120,
+            "accuracy": 0.75,
+            "falseApproves": 0
+          },
+          {
+            "name": "clean_refer",
+            "n": 60,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "borderline",
+            "n": 60,
+            "accuracy": 0.6333333333333333,
+            "falseApproves": 10
+          },
+          {
+            "name": "missing",
+            "n": 60,
+            "accuracy": 0.5333333333333333,
+            "falseApproves": 28
+          },
+          {
+            "name": "conflict",
+            "n": 60,
+            "accuracy": 0,
+            "falseApproves": 60
+          },
+          {
+            "name": "ambiguous",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ],
+        "tags": [
+          {
+            "name": "NONE",
+            "n": 150,
+            "accuracy": 0.8,
+            "falseApproves": 0
+          },
+          {
+            "name": "WRONG_TEST",
+            "n": 30,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "BORDERLINE_AHI",
+            "n": 45,
+            "accuracy": 0.6444444444444445,
+            "falseApproves": 4
+          },
+          {
+            "name": "SCORING_RULE",
+            "n": 5,
+            "accuracy": 0.2,
+            "falseApproves": 4
+          },
+          {
+            "name": "POLICY_GAP",
+            "n": 15,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "SHORT_SLEEP",
+            "n": 15,
+            "accuracy": 0.6,
+            "falseApproves": 6
+          },
+          {
+            "name": "MISSING_DATA",
+            "n": 60,
+            "accuracy": 0.5333333333333333,
+            "falseApproves": 28
+          },
+          {
+            "name": "CONFLICT",
+            "n": 60,
+            "accuracy": 0,
+            "falseApproves": 60
+          },
+          {
+            "name": "AMBIGUOUS_SYMPTOM",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ]
+      },
+      "consistency": {
+        "accuracy": 0.6525,
+        "ece": 0.337,
+        "brier": 0.3363999999999999,
+        "calibrationN": 400,
+        "binN": 400,
+        "parseFailures": 0,
+        "parseFailureRate": 0,
+        "spearman": {
+          "test": "spearman",
+          "rho": 0.13297062105035803,
+          "pValue": 0.007746480231466402,
+          "significant": true,
+          "n": 400,
+          "alpha": 0.05
+        },
+        "safeAt5": null,
+        "safeAt2": null,
+        "slices": [
+          {
+            "name": "clean_approve",
+            "n": 120,
+            "accuracy": 0.75,
+            "falseApproves": 0
+          },
+          {
+            "name": "clean_refer",
+            "n": 60,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "borderline",
+            "n": 60,
+            "accuracy": 0.6333333333333333,
+            "falseApproves": 10
+          },
+          {
+            "name": "missing",
+            "n": 60,
+            "accuracy": 0.55,
+            "falseApproves": 27
+          },
+          {
+            "name": "conflict",
+            "n": 60,
+            "accuracy": 0,
+            "falseApproves": 60
+          },
+          {
+            "name": "ambiguous",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ],
+        "tags": [
+          {
+            "name": "NONE",
+            "n": 150,
+            "accuracy": 0.8,
+            "falseApproves": 0
+          },
+          {
+            "name": "WRONG_TEST",
+            "n": 30,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "BORDERLINE_AHI",
+            "n": 45,
+            "accuracy": 0.6444444444444445,
+            "falseApproves": 4
+          },
+          {
+            "name": "SCORING_RULE",
+            "n": 5,
+            "accuracy": 0.2,
+            "falseApproves": 4
+          },
+          {
+            "name": "POLICY_GAP",
+            "n": 15,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "SHORT_SLEEP",
+            "n": 15,
+            "accuracy": 0.6,
+            "falseApproves": 6
+          },
+          {
+            "name": "MISSING_DATA",
+            "n": 60,
+            "accuracy": 0.55,
+            "falseApproves": 27
+          },
+          {
+            "name": "CONFLICT",
+            "n": 60,
+            "accuracy": 0,
+            "falseApproves": 60
+          },
+          {
+            "name": "AMBIGUOUS_SYMPTOM",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ]
+      }
+    },
+    "B": {
+      "model": "claude-haiku-4-5-20251001",
+      "citationValidity": 1,
+      "citationsValid": 2949,
+      "citationsTotal": 2949,
+      "sampleParseFailures": 2,
+      "sampleDraws": 2000,
+      "verbal": {
+        "accuracy": 0.7,
+        "ece": 0.24262499999999593,
+        "brier": 0.26652375000000067,
+        "calibrationN": 400,
+        "binN": 400,
+        "parseFailures": 0,
+        "parseFailureRate": 0,
+        "spearman": {
+          "test": "spearman",
+          "rho": 0.18635596299819296,
+          "pValue": 0.00017800767698306075,
+          "significant": true,
+          "n": 400,
+          "alpha": 0.05
+        },
+        "safeAt5": null,
+        "safeAt2": null,
+        "slices": [
+          {
+            "name": "clean_approve",
+            "n": 120,
+            "accuracy": 0.75,
+            "falseApproves": 0
+          },
+          {
+            "name": "clean_refer",
+            "n": 60,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "borderline",
+            "n": 60,
+            "accuracy": 0.6,
+            "falseApproves": 12
+          },
+          {
+            "name": "missing",
+            "n": 60,
+            "accuracy": 0.5333333333333333,
+            "falseApproves": 28
+          },
+          {
+            "name": "conflict",
+            "n": 60,
+            "accuracy": 0.36666666666666664,
+            "falseApproves": 38
+          },
+          {
+            "name": "ambiguous",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ],
+        "tags": [
+          {
+            "name": "NONE",
+            "n": 150,
+            "accuracy": 0.8,
+            "falseApproves": 0
+          },
+          {
+            "name": "WRONG_TEST",
+            "n": 30,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "BORDERLINE_AHI",
+            "n": 45,
+            "accuracy": 0.6222222222222222,
+            "falseApproves": 5
+          },
+          {
+            "name": "SCORING_RULE",
+            "n": 5,
+            "accuracy": 0,
+            "falseApproves": 5
+          },
+          {
+            "name": "POLICY_GAP",
+            "n": 15,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "SHORT_SLEEP",
+            "n": 15,
+            "accuracy": 0.5333333333333333,
+            "falseApproves": 7
+          },
+          {
+            "name": "MISSING_DATA",
+            "n": 60,
+            "accuracy": 0.5333333333333333,
+            "falseApproves": 28
+          },
+          {
+            "name": "CONFLICT",
+            "n": 60,
+            "accuracy": 0.36666666666666664,
+            "falseApproves": 38
+          },
+          {
+            "name": "AMBIGUOUS_SYMPTOM",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ]
+      },
+      "consistency": {
+        "accuracy": 0.7075,
+        "ece": 0.2695,
+        "brier": 0.2763000000000001,
+        "calibrationN": 400,
+        "binN": 400,
+        "parseFailures": 0,
+        "parseFailureRate": 0,
+        "spearman": {
+          "test": "spearman",
+          "rho": 0.13491049165056093,
+          "pValue": 0.006889691474712301,
+          "significant": true,
+          "n": 400,
+          "alpha": 0.05
+        },
+        "safeAt5": null,
+        "safeAt2": null,
+        "slices": [
+          {
+            "name": "clean_approve",
+            "n": 120,
+            "accuracy": 0.75,
+            "falseApproves": 0
+          },
+          {
+            "name": "clean_refer",
+            "n": 60,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "borderline",
+            "n": 60,
+            "accuracy": 0.6166666666666667,
+            "falseApproves": 11
+          },
+          {
+            "name": "missing",
+            "n": 60,
+            "accuracy": 0.55,
+            "falseApproves": 27
+          },
+          {
+            "name": "conflict",
+            "n": 60,
+            "accuracy": 0.38333333333333336,
+            "falseApproves": 37
+          },
+          {
+            "name": "ambiguous",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ],
+        "tags": [
+          {
+            "name": "NONE",
+            "n": 150,
+            "accuracy": 0.8,
+            "falseApproves": 0
+          },
+          {
+            "name": "WRONG_TEST",
+            "n": 30,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "BORDERLINE_AHI",
+            "n": 45,
+            "accuracy": 0.6222222222222222,
+            "falseApproves": 5
+          },
+          {
+            "name": "SCORING_RULE",
+            "n": 5,
+            "accuracy": 0,
+            "falseApproves": 5
+          },
+          {
+            "name": "POLICY_GAP",
+            "n": 15,
+            "accuracy": 1,
+            "falseApproves": 0
+          },
+          {
+            "name": "SHORT_SLEEP",
+            "n": 15,
+            "accuracy": 0.6,
+            "falseApproves": 6
+          },
+          {
+            "name": "MISSING_DATA",
+            "n": 60,
+            "accuracy": 0.55,
+            "falseApproves": 27
+          },
+          {
+            "name": "CONFLICT",
+            "n": 60,
+            "accuracy": 0.38333333333333336,
+            "falseApproves": 37
+          },
+          {
+            "name": "AMBIGUOUS_SYMPTOM",
+            "n": 40,
+            "accuracy": 1,
+            "falseApproves": 0
+          }
+        ]
+      }
+    }
+  }
+}
