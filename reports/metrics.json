@@ -51,37 +51,49 @@
             "name": "clean_approve",
             "n": 120,
             "accuracy": 0.75,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "clean_refer",
             "n": 60,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "borderline",
             "n": 60,
             "accuracy": 0.6333333333333333,
-            "falseApproves": 10
+            "falseApproves": 10,
+            "guardedAccuracy": 0.5666666666666667,
+            "guardedFalseApproves": 26
           },
           {
             "name": "missing",
             "n": 60,
             "accuracy": 0.5333333333333333,
-            "falseApproves": 28
+            "falseApproves": 28,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "conflict",
             "n": 60,
             "accuracy": 0,
-            "falseApproves": 60
+            "falseApproves": 60,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "ambiguous",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
         ],
         "tags": [
@@ -89,57 +101,81 @@
             "name": "NONE",
             "n": 150,
             "accuracy": 0.8,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "WRONG_TEST",
             "n": 30,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "BORDERLINE_AHI",
             "n": 45,
             "accuracy": 0.6444444444444445,
-            "falseApproves": 4
+            "falseApproves": 4,
+            "guardedAccuracy": 0.5555555555555556,
+            "guardedFalseApproves": 20
           },
           {
             "name": "SCORING_RULE",
             "n": 5,
             "accuracy": 0.2,
-            "falseApproves": 4
+            "falseApproves": 4,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 5
           },
           {
             "name": "POLICY_GAP",
             "n": 15,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 15
           },
           {
             "name": "SHORT_SLEEP",
             "n": 15,
             "accuracy": 0.6,
-            "falseApproves": 6
+            "falseApproves": 6,
+            "guardedAccuracy": 0.6,
+            "guardedFalseApproves": 6
           },
           {
             "name": "MISSING_DATA",
             "n": 60,
             "accuracy": 0.5333333333333333,
-            "falseApproves": 28
+            "falseApproves": 28,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "CONFLICT",
             "n": 60,
             "accuracy": 0,
-            "falseApproves": 60
+            "falseApproves": 60,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "AMBIGUOUS_SYMPTOM",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
-        ]
+        ],
+        "guarded": {
+          "accuracy": 0.785,
+          "approves": 227,
+          "correct": 141,
+          "wrong": 86
+        }
       },
       "consistency": {
         "accuracy": 0.6525,
@@ -164,37 +200,49 @@
             "name": "clean_approve",
             "n": 120,
             "accuracy": 0.75,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "clean_refer",
             "n": 60,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "borderline",
             "n": 60,
             "accuracy": 0.6333333333333333,
-            "falseApproves": 10
+            "falseApproves": 10,
+            "guardedAccuracy": 0.6,
+            "guardedFalseApproves": 24
           },
           {
             "name": "missing",
             "n": 60,
             "accuracy": 0.55,
-            "falseApproves": 27
+            "falseApproves": 27,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "conflict",
             "n": 60,
             "accuracy": 0,
-            "falseApproves": 60
+            "falseApproves": 60,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "ambiguous",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
         ],
         "tags": [
@@ -202,57 +250,81 @@
             "name": "NONE",
             "n": 150,
             "accuracy": 0.8,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "WRONG_TEST",
             "n": 30,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "BORDERLINE_AHI",
             "n": 45,
             "accuracy": 0.6444444444444445,
-            "falseApproves": 4
+            "falseApproves": 4,
+            "guardedAccuracy": 0.6,
+            "guardedFalseApproves": 18
           },
           {
             "name": "SCORING_RULE",
             "n": 5,
             "accuracy": 0.2,
-            "falseApproves": 4
+            "falseApproves": 4,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 5
           },
           {
             "name": "POLICY_GAP",
             "n": 15,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 0.13333333333333333,
+            "guardedFalseApproves": 13
           },
           {
             "name": "SHORT_SLEEP",
             "n": 15,
             "accuracy": 0.6,
-            "falseApproves": 6
+            "falseApproves": 6,
+            "guardedAccuracy": 0.6,
+            "guardedFalseApproves": 6
           },
           {
             "name": "MISSING_DATA",
             "n": 60,
             "accuracy": 0.55,
-            "falseApproves": 27
+            "falseApproves": 27,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "CONFLICT",
             "n": 60,
             "accuracy": 0,
-            "falseApproves": 60
+            "falseApproves": 60,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "AMBIGUOUS_SYMPTOM",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
-        ]
+        ],
+        "guarded": {
+          "accuracy": 0.79,
+          "approves": 225,
+          "correct": 141,
+          "wrong": 84
+        }
       }
     },
     "B": {
@@ -285,37 +357,49 @@
             "name": "clean_approve",
             "n": 120,
             "accuracy": 0.75,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "clean_refer",
             "n": 60,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "borderline",
             "n": 60,
             "accuracy": 0.6,
-            "falseApproves": 12
+            "falseApproves": 12,
+            "guardedAccuracy": 0.55,
+            "guardedFalseApproves": 27
           },
           {
             "name": "missing",
             "n": 60,
             "accuracy": 0.5333333333333333,
-            "falseApproves": 28
+            "falseApproves": 28,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "conflict",
             "n": 60,
             "accuracy": 0.36666666666666664,
-            "falseApproves": 38
+            "falseApproves": 38,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "ambiguous",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
         ],
         "tags": [
@@ -323,57 +407,81 @@
             "name": "NONE",
             "n": 150,
             "accuracy": 0.8,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "WRONG_TEST",
             "n": 30,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "BORDERLINE_AHI",
             "n": 45,
             "accuracy": 0.6222222222222222,
-            "falseApproves": 5
+            "falseApproves": 5,
+            "guardedAccuracy": 0.5555555555555556,
+            "guardedFalseApproves": 20
           },
           {
             "name": "SCORING_RULE",
             "n": 5,
             "accuracy": 0,
-            "falseApproves": 5
+            "falseApproves": 5,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 5
           },
           {
             "name": "POLICY_GAP",
             "n": 15,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 15
           },
           {
             "name": "SHORT_SLEEP",
             "n": 15,
             "accuracy": 0.5333333333333333,
-            "falseApproves": 7
+            "falseApproves": 7,
+            "guardedAccuracy": 0.5333333333333333,
+            "guardedFalseApproves": 7
           },
           {
             "name": "MISSING_DATA",
             "n": 60,
             "accuracy": 0.5333333333333333,
-            "falseApproves": 28
+            "falseApproves": 28,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "CONFLICT",
             "n": 60,
             "accuracy": 0.36666666666666664,
-            "falseApproves": 38
+            "falseApproves": 38,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "AMBIGUOUS_SYMPTOM",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
-        ]
+        ],
+        "guarded": {
+          "accuracy": 0.7825,
+          "approves": 228,
+          "correct": 141,
+          "wrong": 87
+        }
       },
       "consistency": {
         "accuracy": 0.7075,
@@ -398,37 +506,49 @@
             "name": "clean_approve",
             "n": 120,
             "accuracy": 0.75,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "clean_refer",
             "n": 60,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "borderline",
             "n": 60,
             "accuracy": 0.6166666666666667,
-            "falseApproves": 11
+            "falseApproves": 11,
+            "guardedAccuracy": 0.55,
+            "guardedFalseApproves": 26
           },
           {
             "name": "missing",
             "n": 60,
             "accuracy": 0.55,
-            "falseApproves": 27
+            "falseApproves": 27,
+            "guardedAccuracy": 0.9666666666666667,
+            "guardedFalseApproves": 2
           },
           {
             "name": "conflict",
             "n": 60,
             "accuracy": 0.38333333333333336,
-            "falseApproves": 37
+            "falseApproves": 37,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "ambiguous",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
         ],
         "tags": [
@@ -436,57 +556,81 @@
             "name": "NONE",
             "n": 150,
             "accuracy": 0.8,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "WRONG_TEST",
             "n": 30,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           },
           {
             "name": "BORDERLINE_AHI",
             "n": 45,
             "accuracy": 0.6222222222222222,
-            "falseApproves": 5
+            "falseApproves": 5,
+            "guardedAccuracy": 0.5333333333333333,
+            "guardedFalseApproves": 20
           },
           {
             "name": "SCORING_RULE",
             "n": 5,
             "accuracy": 0,
-            "falseApproves": 5
+            "falseApproves": 5,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 5
           },
           {
             "name": "POLICY_GAP",
             "n": 15,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 15
           },
           {
             "name": "SHORT_SLEEP",
             "n": 15,
             "accuracy": 0.6,
-            "falseApproves": 6
+            "falseApproves": 6,
+            "guardedAccuracy": 0.6,
+            "guardedFalseApproves": 6
           },
           {
             "name": "MISSING_DATA",
             "n": 60,
             "accuracy": 0.55,
-            "falseApproves": 27
+            "falseApproves": 27,
+            "guardedAccuracy": 0.9666666666666667,
+            "guardedFalseApproves": 2
           },
           {
             "name": "CONFLICT",
             "n": 60,
             "accuracy": 0.38333333333333336,
-            "falseApproves": 37
+            "falseApproves": 37,
+            "guardedAccuracy": 0,
+            "guardedFalseApproves": 60
           },
           {
             "name": "AMBIGUOUS_SYMPTOM",
             "n": 40,
             "accuracy": 1,
-            "falseApproves": 0
+            "falseApproves": 0,
+            "guardedAccuracy": 1,
+            "guardedFalseApproves": 0
           }
-        ]
+        ],
+        "guarded": {
+          "accuracy": 0.7775,
+          "approves": 228,
+          "correct": 140,
+          "wrong": 88
+        }
       }
     }
   }

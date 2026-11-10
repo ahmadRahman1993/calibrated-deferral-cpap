@@ -122,12 +122,12 @@ describe("initial CPAP rules", () => {
       draft.sleepTest.totalEvents = 10;
     }).reasons).toEqual(["I7"]);
 
-    const longAndFew = label((draft) => { draft.sleepTest.totalEvents = 20; });
-    expect(longAndFew.label).toBe("APPROVE");
+    const longAndFewNcd = label((draft) => { draft.sleepTest.totalEvents = 20; }, { minEvents: "ncd" });
+    expect(longAndFewNcd.label).toBe("APPROVE");
 
-    const lcd = label((draft) => { draft.sleepTest.totalEvents = 20; }, { minEvents: "lcd" });
-    expect(lcd.label).toBe("REFER");
-    expect(lcd.reasons).toEqual(["I7"]);
+    const longAndFewLcd = label((draft) => { draft.sleepTest.totalEvents = 20; });
+    expect(longAndFewLcd.label).toBe("REFER");
+    expect(longAndFewLcd.reasons).toEqual(["I7"]);
   });
 
   it("refers telehealth, a late evaluation, a weak test, and a test nobody ordered", () => {
@@ -169,19 +169,21 @@ describe("initial CPAP rules", () => {
     }).label).toBe("APPROVE");
   });
 
-  it("refers 3% scoring near a threshold and allows it when the index is far away", () => {
-    const near = label((draft) => {
+  it("refers any 3% hypopnea scoring because Medicare uses the 4% rule", () => {
+    const nearThreshold = label((draft) => {
       draft.sleepTest.ahi = 15.2;
       draft.sleepTest.hypopneaRule = "3pct";
     });
-    expect(near.label).toBe("REFER");
-    expect(near.rules.I5).toBe("met");
-    expect(near.reasons).toEqual(["SCORING_RULE"]);
+    expect(nearThreshold.label).toBe("REFER");
+    expect(nearThreshold.rules.I5).toBe("met");
+    expect(nearThreshold.reasons).toEqual(["SCORING_RULE"]);
 
-    expect(label((draft) => {
+    const farFromThreshold = label((draft) => {
       draft.sleepTest.ahi = 30;
       draft.sleepTest.hypopneaRule = "3pct";
-    }).label).toBe("APPROVE");
+    });
+    expect(farFromThreshold.label).toBe("REFER");
+    expect(farFromThreshold.reasons).toEqual(["SCORING_RULE"]);
   });
 
   it("refers when the documents conflict, even if the canonical facts would approve", () => {

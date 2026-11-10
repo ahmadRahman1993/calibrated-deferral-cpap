@@ -34,8 +34,8 @@ if (!existsSync(denylistFile)) {
 
 const readme = existsSync(path.join(root, "README.md")) ? readFileSync(path.join(root, "README.md"), "utf8") : "";
 for (const phrase of [
-  "Not affiliated with Anterior",
-  "does not replicate Florence",
+  "Independent personal project",
+  "not affiliated with any company",
   "synthetic",
   "not clinical advice",
   "cms.gov",

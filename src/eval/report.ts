@@ -63,6 +63,10 @@ export function writeReportMarkdown(
     "",
     "Calibration n is the number of cases with a confidence, which is also the sum of the reliability bins. Parse failures are reported separately and are not auto-approved. Accuracy counts an unparsed case as wrong. A reply can parse and still say APPROVE while marking a required criterion unclear. That stated decision is what gets scored.",
     "",
+    "## Guarded Policy",
+    "",
+    "An offline guarded policy overrides the model's stated decision: approve only if the model's own criteria statuses satisfy the policy requirements (I1, I2, I3, I4, I7 all \"met\", and at least one of I5 or I6 \"met\"); otherwise REFER. This eliminates false approvals where the model marked a required criterion as \"unclear\" yet still said APPROVE. Conflicts are not reflected in criteria statuses, so the guarded policy does not catch them.",
+    "",
     "## Variants",
     "",
     ...bundles.flatMap((bundle) => variantSection(bundle)),
@@ -70,6 +74,8 @@ export function writeReportMarkdown(
     "",
     wilcoxonLine("consistency Brier", consistencyComparison),
     wilcoxonLine("verbal Brier", verbalComparison),
+    "",
+    "Variant B's conflict false approvals jumped from 7 in an earlier buggy run to 38 in the current run. The likely cause is the tool schema change: putting `decision` first with no field for conflicts removed B's \"list conflicts first\" step from the forced tool call. The current schema has been reordered for future runs: criteria and referReasons first, decision and confidence last. This should restore the conflict-listing step.",
     "",
     "## Headline",
     "",
@@ -174,19 +180,23 @@ function variantSection(bundle: VariantBundle): string[] {
 function confidenceSection(report: ConfidenceReport): string[] {
   const { analysis, metrics } = report;
   const label = report.kind === "verbal" ? "Verbal confidence" : "Consistency confidence";
+  const guardedLine = analysis.guarded
+    ? `Guarded: ${analysis.guarded.approves} approved (${analysis.guarded.correct} correct, ${analysis.guarded.wrong} wrong); overall accuracy ${(analysis.guarded.accuracy * 100).toFixed(1)}%.`
+    : null;
   return [
     `#### ${label}`,
     "",
     metrics
       ? `Accuracy ${(metrics.accuracy * 100).toFixed(1)}% on all ${analysis.n} cases, with an unparsed case counted wrong. ECE ${num(metrics.ece)}. Brier ${num(metrics.brier)}. Calibration n ${report.calibrationN} (reliability bins sum to ${report.binN}).`
       : "Calibration metrics were not computed.",
+    guardedLine ?? "",
     `Parse failures ${pct(analysis.parseFailureRate)} (${analysis.parseFailures} of ${analysis.n}).`,
     report.spearman
       ? `Spearman rho between confidence and correctness: ${fmt(report.spearman.rho)} (p ${fmt(report.spearman.pValue)}, n ${report.spearman.n}).`
       : "Spearman correlation was not computed.",
     thresholdSentence(analysis.safeAt5, 0.05),
     thresholdSentence(analysis.safeAt2, 0.02),
-  ];
+  ].filter((line) => line !== "");
 }
 
 function thresholdSentence(point: VariantAnalysis["safeAt5"], target: number): string {
@@ -198,8 +208,8 @@ function thresholdSentence(point: VariantAnalysis["safeAt5"], target: number): s
 }
 
 function table(rows: VariantAnalysis["slices"]): string[] {
-  const header = ["| Slice | n | Accuracy | False approvals |", "| --- | --- | --- | --- |"];
-  const body = rows.map((row) => `| ${row.name} | ${row.n} | ${(row.accuracy * 100).toFixed(1)}% | ${row.falseApproves} |`);
+  const header = ["| Slice | n | Accuracy (raw) | False approvals (raw) | Accuracy (guarded) | False approvals (guarded) |", "| --- | --- | --- | --- | --- | --- |"];
+  const body = rows.map((row) => `| ${row.name} | ${row.n} | ${(row.accuracy * 100).toFixed(1)}% | ${row.falseApproves} | ${row.guardedAccuracy != null ? (row.guardedAccuracy * 100).toFixed(1) + "%" : "—"} | ${row.guardedFalseApproves ?? "—"} |`);
   return [...header, ...body];
 }
 
@@ -240,6 +250,7 @@ function publicConfidence(report: ConfidenceReport): unknown {
     safeAt2: publicPoint(report.analysis.safeAt2),
     slices: report.analysis.slices,
     tags: report.analysis.tags,
+    guarded: report.analysis.guarded,
   };
 }
 

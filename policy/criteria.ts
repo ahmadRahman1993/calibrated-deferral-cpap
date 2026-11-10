@@ -71,6 +71,8 @@ export const AMBIGUITY_RULES: readonly { id: string; plain: string }[] = [
   },
   {
     id: "A3",
+    // NOTE: Rule tightened in implementation to refer any 3% study (not just within 2 events of threshold).
+    // Text kept as-is to preserve prompt hash compatibility with existing cache.
     plain: "If the report scores hypopneas with a 3% desaturation rule and the qualifying index is within 2 events of 5 or of 15, refer with reason SCORING_RULE.",
   },
   {

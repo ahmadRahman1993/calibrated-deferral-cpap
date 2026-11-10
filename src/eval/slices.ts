@@ -5,6 +5,8 @@ export interface GroupMetrics {
   n: number;
   accuracy: number;
   falseApproves: number;
+  guardedAccuracy?: number;
+  guardedFalseApproves?: number;
 }
 
 export function sliceTable(scored: ScoredCase[]): GroupMetrics[] {
@@ -29,5 +31,7 @@ function groupMetrics(scored: ScoredCase[], names: (item: ScoredCase) => string[
     n: items.length,
     accuracy: items.filter((item) => item.decision === item.label).length / items.length,
     falseApproves: items.filter((item) => item.decision === "APPROVE" && item.label === "REFER").length,
+    guardedAccuracy: items.filter((item) => item.guardedDecision === item.label).length / items.length,
+    guardedFalseApproves: items.filter((item) => item.guardedDecision === "APPROVE" && item.label === "REFER").length,
   }));
 }

@@ -1,6 +1,16 @@
-# CPAP prior-auth reliability demo
+# Can an AI know when to send a case to a nurse?
 
-A small, public, synthetic-data demo. An LLM reviewer may only say APPROVE or REFER. The question is what share of initial CPAP requests it can auto-approve while the 95% Wilson upper bound on false approvals stays under a chosen error rate.
+400 synthetic Medicare CPAP requests; the AI may only approve or refer. Neither its own confidence nor agreement across 5 tries gave a safe auto-approve threshold. Even unanimous answers were right only 67-73% of the time.
+
+Where it fails: notes that disagree (approved 60/60 with the direct prompt, 38/60 with a checklist prompt) and missing paperwork (28/60 both prompts).
+
+The checklist prompt was significantly better calibrated (Wilcoxon p ~ 0.0001). All quoted citations were real.
+
+A guarded policy (approve only if the model's own criteria checks all pass) eliminated missing-paperwork false approvals but increased conflict approvals to 60/60 for both prompts. Guarded approval accuracy: 62% (A), 62% (B).
+
+Independent personal project, not affiliated with any company. Synthetic data, not clinical advice.
+
+---
 
 Ground truth comes from a deterministic rules engine over structured facts. The model only sees rendered notes. Charts are rebuilt from a committed response cache, so `pnpm demo` does not need an API key.
 
@@ -81,3 +91,15 @@ Copy `send-denylist.example.txt` to `send-denylist.txt` and add employer terms b
 Variant A asks for the decision directly. Variant B requires a conflict list and a per-criterion pass before the decision. Both submit through the same tool.
 
 Library: [`reliability-eval`](https://github.com/ahmadRahman1993/reliability-eval). Accuracy, ECE, and Brier come from `evaluate`. The coverage curve and Wilson threshold are local, because that library does not ship them.
+
+## Limitations
+
+- **Synthetic data.** This is not an estimate of real prior-auth performance.
+- **Data quality.** The fixture in `src/fixtures/validCase.ts` uses 240 min sleep with 88 events, but the generator varies AHI without updating event counts. As a result, ~276 of 400 cases have inconsistent event counts that don't match the stated AHI. Additionally, only ~274 of 400 case texts are unique. Both issues overstate the effective sample size for Wilson bounds and Wilcoxon p-values. The generator is fixed for future runs (call `syncTotalEvents` after setting AHI), but the current dataset is not regenerated.
+- **Threshold selection.** The threshold is selected and evaluated on the same cases (no holdout).
+- **Adult definition.** Adult is encoded as age 18 or older. The NCD says adult and does not define it.
+- **Telehealth evaluation.** Telehealth-only evaluation is referred in this demo. Confirm the current CMS and DME MAC position before treating that as a coverage rule.
+- **Minimum event rule.** The event floor uses the LCD reading (default): it always applies. The NCD reading (`minEvents: "ncd"`) applies it only when recorded sleep is under 2 hours. Supplier education (NCD item 2) and same-day evaluation handling are simplifications.
+- **3% hypopnea scoring.** The A3 ambiguity rule text preserved the original narrow wording for prompt hash compatibility, but the implementation was tightened to refer any 3%-scored study (not just within 2 events of a threshold). All 5 cases with 3% scoring are labeled REFER. Medicare policy requires the 4% desaturation rule. All 30 clean tier-B approval misses in variant B appear to be the model misapplying the 3% vs 4% distinction despite having 4%-scored studies.
+- **Verbal confidence calibration.** If ECE is high or Spearman rho is weak, the threshold is a description of this run, not a number to ship.
+- **Continuation requests.** Continuation-of-therapy requests are not in this dataset.
