@@ -1,0 +1,8 @@
+# Add employer names, product names, and internal terms here (one per line).
+# Lines starting with # are comments and will be ignored.
+# Copy this file to send-denylist.txt and add terms before running pnpm check:send.
+
+# Example entries:
+# acme-corp
+# project-codename
+# internal-tool-name

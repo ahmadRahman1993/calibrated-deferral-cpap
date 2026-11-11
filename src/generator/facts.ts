@@ -298,6 +298,17 @@ function setTestType(facts: CaseFacts, index: number): void {
   facts.sleepTest.channels = type === "HST_TYPE_IV" ? 4 : null;
 }
 
+/**
+ * Ensure totalEvents matches AHI and recorded sleep time.
+ * Call this after setting AHI and recordedSleepMin.
+ */
+function syncTotalEvents(facts: CaseFacts): void {
+  const { ahi, recordedSleepMin } = facts.sleepTest;
+  if (ahi != null && recordedSleepMin != null) {
+    facts.sleepTest.totalEvents = Math.round((ahi * recordedSleepMin) / 60);
+  }
+}
+
 export function materializeFacts(seed: number): CaseFacts[] {
   const plans = casePlans();
   const seen = new Map<Slice, number>();
@@ -307,6 +318,7 @@ export function materializeFacts(seed: number): CaseFacts[] {
     const caseId = caseIdFor(index);
     const facts = validInitialFacts(caseId, seed + index);
     plan.apply(facts, withinSlice);
+    // syncTotalEvents(facts); // TODO: Enable for future dataset regenerations
     facts.caseId = caseId;
     facts.seed = seed + index;
     facts.hardCase = plan.hardCase;

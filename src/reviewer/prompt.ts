@@ -61,6 +61,8 @@ function renderDocument(document: ReviewDocument): string {
 }
 
 function jsonShape(): string {
+  // NOTE: Changing this changes the promptHash and invalidates the response cache.
+  // For future runs with a new cache, consider: criteria first, then decision/confidence.
   return [
     "{",
     '  "decision": "APPROVE or REFER",',

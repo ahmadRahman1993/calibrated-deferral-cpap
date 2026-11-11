@@ -63,6 +63,10 @@ export function writeReportMarkdown(
     "",
     "Calibration n is the number of cases with a confidence, which is also the sum of the reliability bins. Parse failures are reported separately and are not auto-approved. Accuracy counts an unparsed case as wrong. A reply can parse and still say APPROVE while marking a required criterion unclear. That stated decision is what gets scored.",
     "",
+    "## Guarded Policy",
+    "",
+    "An offline guarded filter acts on the model's APPROVE decisions: final decision is APPROVE only if (1) the model said APPROVE, AND (2) the model's own criteria statuses satisfy policy requirements (I1, I2, I3, I4, I7 all \"met\", and at least one of I5 or I6 \"met\"); otherwise REFER. This eliminates false approvals where the model said APPROVE but marked a required criterion as \"unclear\" or \"not_met\". Conflicts are not reflected in criteria statuses, so the guarded filter does not catch them. The filter can only reduce approvals, never increase them.",
+    "",
     "## Variants",
     "",
     ...bundles.flatMap((bundle) => variantSection(bundle)),
@@ -70,6 +74,8 @@ export function writeReportMarkdown(
     "",
     wilcoxonLine("consistency Brier", consistencyComparison),
     wilcoxonLine("verbal Brier", verbalComparison),
+    "",
+    "Variant B's conflict false approvals jumped from 7 in an earlier buggy run to 38 in the current run. The likely cause is the tool schema change: putting `decision` first with no field for conflicts removed B's \"list conflicts first\" step from the forced tool call. The current schema has been reordered for future runs: criteria and referReasons first, decision and confidence last. This should restore the conflict-listing step.",
     "",
     "## Headline",
     "",
@@ -79,12 +85,16 @@ export function writeReportMarkdown(
     "",
     "## Limitations",
     "",
-    "- The cases are synthetic. This is not an estimate of real prior-auth performance.",
-    "- Adult is encoded as age 18 or older. The NCD says adult and does not define it.",
-    "- Telehealth-only evaluation is referred in this demo. Confirm the current CMS and DME MAC position before treating that as a coverage rule.",
-    "- The event floor follows the NCD wording: it applies when recorded sleep is under 2 hours. The LCD reading is available as `minEvents: \"lcd\"` and is not the default.",
-    "- Verbal confidence is often poorly calibrated. If ECE is high or Spearman rho is weak, the threshold is a description of this run, not a number to ship.",
-    "- Continuation-of-therapy requests are not in this dataset.",
+    "- **Synthetic data.** The cases are synthetic. This is not an estimate of real prior-auth performance.",
+    "- **Data quality.** Only 274 of 400 case texts are unique. 276 of 400 cases have event counts inconsistent with AHI × sleep time (the fixture uses 240 min / 88 events, but the generator varies AHI without updating event counts). Both issues overstate precision: the n=400 independence assumptions in Wilcoxon tests and Wilson bounds treat duplicate or near-duplicate cases as independent observations.",
+    "- **No holdout split.** The auto-approve threshold is selected and evaluated on the same cases.",
+    "- **Guarded filter limitations.** The guarded filter eliminates missing-data false approvals but does not catch conflicts (criteria statuses don't reflect contradictions across documents). Variant A: 60 of 60 conflict cases still wrongly approved. Variant B: 38 of 60 conflict cases still wrongly approved.",
+    "- **Adult definition.** Adult is encoded as age 18 or older. The NCD says adult and does not define it.",
+    "- **Telehealth evaluation.** Telehealth-only evaluation is referred in this demo. Confirm the current CMS and DME MAC position before treating that as a coverage rule.",
+    "- **Minimum event rule.** The event floor uses the LCD reading by default (`minEvents: \"lcd\"`): it applies always, not only when recorded sleep is under 2 hours. The NCD wording is available as `minEvents: \"ncd\"`. Supplier education (NCD item 2) and same-day evaluation handling are simplifications.",
+    "- **3% hypopnea scoring.** Any study using a 3% oxygen desaturation hypopnea scoring rule is referred (Medicare policy requires the 4% rule). The A3 ambiguity rule text in `criteria.ts` was kept narrow (\"within 2 events of threshold\") for prompt hash compatibility with the existing response cache, but the implementation in `rules.ts` refers all 3%-scored studies.",
+    "- **Verbal confidence calibration.** Verbal confidence is often poorly calibrated. If ECE is high or Spearman rho is weak, the threshold is a description of this run, not a number to ship.",
+    "- **Continuation requests.** Continuation-of-therapy requests are not in this dataset.",
     "",
   ];
   return lines.join("\n");
@@ -174,19 +184,23 @@ function variantSection(bundle: VariantBundle): string[] {
 function confidenceSection(report: ConfidenceReport): string[] {
   const { analysis, metrics } = report;
   const label = report.kind === "verbal" ? "Verbal confidence" : "Consistency confidence";
+  const guardedLine = analysis.guarded
+    ? `Guarded: ${analysis.guarded.approves} approved (${analysis.guarded.correct} correct, ${analysis.guarded.wrong} wrong); overall accuracy ${(analysis.guarded.accuracy * 100).toFixed(1)}%.`
+    : null;
   return [
     `#### ${label}`,
     "",
     metrics
       ? `Accuracy ${(metrics.accuracy * 100).toFixed(1)}% on all ${analysis.n} cases, with an unparsed case counted wrong. ECE ${num(metrics.ece)}. Brier ${num(metrics.brier)}. Calibration n ${report.calibrationN} (reliability bins sum to ${report.binN}).`
       : "Calibration metrics were not computed.",
+    guardedLine ?? "",
     `Parse failures ${pct(analysis.parseFailureRate)} (${analysis.parseFailures} of ${analysis.n}).`,
     report.spearman
       ? `Spearman rho between confidence and correctness: ${fmt(report.spearman.rho)} (p ${fmt(report.spearman.pValue)}, n ${report.spearman.n}).`
       : "Spearman correlation was not computed.",
     thresholdSentence(analysis.safeAt5, 0.05),
     thresholdSentence(analysis.safeAt2, 0.02),
-  ];
+  ].filter((line) => line !== "");
 }
 
 function thresholdSentence(point: VariantAnalysis["safeAt5"], target: number): string {
@@ -198,8 +212,8 @@ function thresholdSentence(point: VariantAnalysis["safeAt5"], target: number): s
 }
 
 function table(rows: VariantAnalysis["slices"]): string[] {
-  const header = ["| Slice | n | Accuracy | False approvals |", "| --- | --- | --- | --- |"];
-  const body = rows.map((row) => `| ${row.name} | ${row.n} | ${(row.accuracy * 100).toFixed(1)}% | ${row.falseApproves} |`);
+  const header = ["| Slice | n | Accuracy (raw) | False approvals (raw) | Accuracy (guarded) | False approvals (guarded) |", "| --- | --- | --- | --- | --- | --- |"];
+  const body = rows.map((row) => `| ${row.name} | ${row.n} | ${(row.accuracy * 100).toFixed(1)}% | ${row.falseApproves} | ${row.guardedAccuracy != null ? (row.guardedAccuracy * 100).toFixed(1) + "%" : "—"} | ${row.guardedFalseApproves ?? "—"} |`);
   return [...header, ...body];
 }
 
@@ -240,6 +254,7 @@ function publicConfidence(report: ConfidenceReport): unknown {
     safeAt2: publicPoint(report.analysis.safeAt2),
     slices: report.analysis.slices,
     tags: report.analysis.tags,
+    guarded: report.analysis.guarded,
   };
 }
 

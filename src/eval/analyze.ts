@@ -1,6 +1,6 @@
 import type { ReviewCase, RunRecord } from "../types.js";
 import { citationStats } from "./citations.js";
-import { coverageCurve, safeThreshold, scoreCase, type CurvePoint, type ScoredCase } from "./coverage.js";
+import { coverageCurve, guardedMetrics, safeThreshold, scoreCase, type CurvePoint, type GuardedMetrics, type ScoredCase } from "./coverage.js";
 import { sliceTable, tagTable, type GroupMetrics } from "./slices.js";
 
 export interface VariantAnalysis {
@@ -16,6 +16,7 @@ export interface VariantAnalysis {
   safeAt5: CurvePoint | null;
   safeAt2: CurvePoint | null;
   scored: ScoredCase[];
+  guarded?: GuardedMetrics;
 }
 
 export function analyzeVariant(variant: "A" | "B", cases: ReviewCase[], records: RunRecord[]): VariantAnalysis {
@@ -55,5 +56,6 @@ function finish(
     safeAt5: safeThreshold(scored, 0.05),
     safeAt2: safeThreshold(scored, 0.02),
     scored,
+    guarded: guardedMetrics(scored),
   };
 }

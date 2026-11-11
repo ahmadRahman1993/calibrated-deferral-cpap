@@ -20,7 +20,7 @@ export function decide(facts: CaseFacts, config: RulesConfig = {}): GroundTruth 
     throw new Error(`Continuation rules are out of scope for v1 (${facts.caseId}).`);
   }
 
-  const minEvents = config.minEvents ?? "ncd";
+  const minEvents = config.minEvents ?? "lcd";
   const indexes = consideredIndexes(facts, config.strictIndex === true);
   const i1 = evalI1(facts);
   const i2 = evalI2(facts);
@@ -150,12 +150,8 @@ function scoringAmbiguity(
   i5: RuleStatus,
   i6: RuleStatus,
 ): boolean {
-  if (facts.sleepTest.hypopneaRule !== "3pct") return false;
-  if (i5 === "met" && indexes.some((value) => value >= 15 && value <= 17)) return true;
-  if (i6 === "met" && indexes.some((value) => (value >= 5 && value <= 7) || (value >= 13 && value <= 14))) {
-    return true;
-  }
-  return false;
+  // Any 3% desaturation rule -> REFER. Medicare uses the 4% rule.
+  return facts.sleepTest.hypopneaRule === "3pct";
 }
 
 function severityReasons(

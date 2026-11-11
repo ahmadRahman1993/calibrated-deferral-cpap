@@ -1,6 +1,32 @@
-import type { Decision, ReviewCase, RunRecord } from "../types.js";
+import type { Decision, ReviewCase, ReviewerOutput, RunRecord } from "../types.js";
 import { parseReviewerOutput } from "../reviewer/schema.js";
 import type { ScoredCase } from "./coverage.js";
+
+/**
+ * Guarded policy: filter on APPROVE decisions.
+ * Final decision is APPROVE only if:
+ * 1. Model said APPROVE, AND
+ * 2. Model's own criteria statuses satisfy: I1, I2, I3, I4, I7 all "met", and (I5 or I6) "met"
+ * Otherwise REFER.
+ */
+function computeGuardedDecision(parsed: ReviewerOutput): Decision {
+  // If model didn't say APPROVE, guard doesn't override
+  if (parsed.decision !== "APPROVE") return "REFER";
+  
+  const statusMap = new Map(parsed.criteria.map((c) => [c.id, c.status]));
+  
+  // Check gates: I1, I2, I3, I4, I7 must all be "met"
+  for (const gate of ["I1", "I2", "I3", "I4", "I7"]) {
+    if (statusMap.get(gate) !== "met") return "REFER";
+  }
+  
+  // Check severity: at least one of I5 or I6 must be "met"
+  const i5 = statusMap.get("I5");
+  const i6 = statusMap.get("I6");
+  if (i5 !== "met" && i6 !== "met") return "REFER";
+  
+  return "APPROVE";
+}
 
 export const CONSISTENCY_K = 5;
 export const CONSISTENCY_TEMPERATURE = 0.7;
@@ -69,6 +95,7 @@ export function scoreConsistency(cases: ReviewCase[], records: RunRecord[]): Con
       label: item.truth.label,
       decision: outcome.decision,
       confidence: outcome.confidence,
+      guardedDecision: donor ? computeGuardedDecision(donor) : null,
     };
   });
 
